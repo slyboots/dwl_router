@@ -29,8 +29,11 @@ def create_app(test_config=None):
     @app.route('/rgleads', methods=['GET', 'POST'])
     def log_leadrouter_lead():
         '''log information from lead router'''
-        app.logger.info(request.get_json())
-        return 'Lead Received'
+        if request.method == 'POST':
+            app.logger.info(request.get_json())
+            return 'Lead Received'
+        else:
+            return 'This route accepts POST requests from the lead router.'
 
 
     return app
